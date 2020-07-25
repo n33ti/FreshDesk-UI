@@ -1,0 +1,88 @@
+<h3>
+    Hi {{UserId}}
+</h3>
+<br>
+<h5 *ngIf = "admin"> all tickets</h5>
+
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ticket id</th>
+    
+      <th scope="col">status</th>
+      <th scope="col">query</th>
+      <th scope="col">contact person</th>
+     
+     <td *ngIf = "admin"> userId </td>
+     <td *ngIf = "admin"> select </td>
+    </tr>
+    </thead>
+    <tbody>
+   <tr *ngFor ="let ticket of tickets">
+       <td>
+           {{ticket.id}}
+       </td>
+       <td>
+           {{ticket.status}}
+       </td>
+       <td>
+        {{ticket.query}}
+    </td>
+    <td>
+        {{ticket.contactPerson}}
+    </td>
+    <td *ngIf="admin">
+        {{ticket.userId}}
+           </td>
+    <td *ngIf="admin">
+      <input type="radio" value="{{ticket.id}}" id={{ticket.id}} name="radioTicket" (change)="currentTicket($event.target.value)" />
+           </td>
+ 
+   </tr>
+   <tr>
+       <td>
+           
+       </td>
+       <td>
+
+       </td>
+       <td>
+
+       </td>
+       <td>
+
+    </td>
+    <td *ngIf = "admin" >
+
+    </td>
+       <td *ngIf = "admin" ></td>
+   </tr>
+   <tr>
+       <td>
+        <button *ngIf="!admin" class = "btn btn-primary" (click) = "createTicket()" routerLink="create"> 
+            raise ticket
+             </button>
+             <button *ngIf="admin" class = "btn btn-primary" (click) = "deleteTicket($event)" > 
+                delete ticket
+            </button>
+       </td>
+       <td>
+  
+    <button *ngIf="admin" class = "btn btn-primary" (click) = "updateTicket()"> 
+      update ticket
+       </button>
+       </td>
+       <td>
+  
+    <button *ngIf="admin" class = "btn btn-primary" (click) = "createTicket()"> 
+       create contact
+       </button>
+           </td>
+
+   </tr>
+    </tbody>
+  </table>
+
+
+  <router-outlet></router-outlet>
