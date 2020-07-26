@@ -11,6 +11,8 @@ import { AdminComponent } from './admin/admin.component';
 import {DecimalPipe} from '@angular/common';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { RegisterComponent } from './register/register.component';
+import { UpdateTicketFormComponent } from './update-ticket-form/update-ticket-form.component';
+import { CreateContactFormComponent } from './create-contact-form/create-contact-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,9 @@ import { RegisterComponent } from './register/register.component';
     DashboardComponent,
     AdminComponent,
     TicketFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateTicketFormComponent,
+    CreateContactFormComponent
   ],
   imports: [
     BrowserModule,

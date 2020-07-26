@@ -1,0 +1,20 @@
+<hr>
+<br>
+<br>
+<form [formGroup]="createContactForm" (ngSubmit)="onSubmit()">
+    <div class="form-group md-form">
+        <label for="contactPerson"> Name of the Contact person</label>
+        <input type="text" formControlName="contactPerson" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactPerson.errors }" />
+        <div *ngIf="submitted && f.contactPerson.errors" class="invalid-feedback"> 
+            <div *ngIf="f.contactPerson.errors.required">this field is required</div>
+            </div>
+       
+    </div>
+ 
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading"  class="spinner-border spinner-border-sm mr-1"></span>
+            submit
+        </button>
+        </div>
+    </form>

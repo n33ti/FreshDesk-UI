@@ -53,10 +53,9 @@
        <td>
 
     </td>
-    <td *ngIf = "admin" >
-
-    </td>
+    <td *ngIf = "admin" >    </td>
        <td *ngIf = "admin" ></td>
+      
    </tr>
    <tr>
        <td>
@@ -67,19 +66,23 @@
                 delete ticket
             </button>
        </td>
+
        <td>
   
-    <button *ngIf="admin" class = "btn btn-primary" (click) = "updateTicket()"> 
+    <button *ngIf="admin" routerLink="update/{{selectedTicketid}}" class = "btn btn-primary" (click) = "updateTicket()"> 
       update ticket
        </button>
        </td>
        <td>
   
-    <button *ngIf="admin" class = "btn btn-primary" (click) = "createTicket()"> 
+    <button *ngIf="admin" class = "btn btn-primary" routerLink="createContact" > 
        create contact
        </button>
            </td>
 
+
+           <td *ngIf = "admin" >    </td>
+           <td *ngIf = "admin" ></td>
    </tr>
     </tbody>
   </table>

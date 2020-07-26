@@ -30,6 +30,8 @@ export class TicketFormComponent implements OnInit {
      (data) =>
      {
      console.log(data)
+     if(data === true)
+     alert('ticket raised')
      this.loading = false
      },
      err=>

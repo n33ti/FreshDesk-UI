@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   error= false;
-  
+  role
   constructor(
     private formBuilder: FormBuilder,
     private service : AuthService
@@ -23,10 +23,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      role: ['', Validators.required]
+      role: ['',]
   
 
 });
+
+this.role = this.registerForm.controls.role.status
+
 }
 
 
@@ -36,6 +39,21 @@ onSubmit()
 {
   this.submitted = true;
   this.loading = true;
+  this.service.register(this.f.username.value, this.f.password.value, this.role).subscribe(
+    (data)=>
+    {
+      console.log(data)
+
+      this.loading = false;
+      if(data)
+      {
+        alert('Registeration succesfull')
+      }
+      else{
+        alert('Registeration failed. try again')
+      }
+    }
+  )
 }
 
 }

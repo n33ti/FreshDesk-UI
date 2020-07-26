@@ -77,4 +77,14 @@ public get CurrentRoleValue()
   return this.role
 }
 
+  register(username , password, role)
+  {
+    var url ;
+    if(role.toString() === 'INVALID' )
+     url = 'https://localhost:44319/api/AddUser';
+    else
+    url = 'https://localhost:44319/api/Admin/AddAdmin'
+    return this.http.post(url, {Username: username, Password: password});
+  }
+
 }

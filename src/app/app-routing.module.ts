@@ -7,19 +7,15 @@ import { AdminComponent } from './admin/admin.component';
 import {AdminGuard} from './admin.guard'
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { RegisterComponent } from './register/register.component';
+import { UpdateTicketFormComponent } from './update-ticket-form/update-ticket-form.component';
+import { CreateContactFormComponent } from './create-contact-form/create-contact-form.component';
 
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    children: [
-      {
-        path: 'register',
-        component: RegisterComponent
-      }
-    ]
-  },
+     },
   {
     path: ':id',
     component: DashboardComponent,
@@ -30,6 +26,17 @@ const routes: Routes = [
         component: TicketFormComponent,
         canActivate: [AuthGuard]
       },
+      {
+        path: 'update/:id',
+        component: UpdateTicketFormComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'createContact',
+        component: CreateContactFormComponent,
+        canActivate: [AuthGuard]
+      }
+
     ]
     
   

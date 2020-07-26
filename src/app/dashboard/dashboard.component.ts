@@ -112,7 +112,11 @@ selectedTicketid;
   {
     //console.log("here")
      this.service.deleteTicket(this.selectedTicketid).subscribe(
-       (data) => console.log(data)
+       (data) => {console.log(data)
+        if(data === true)
+        alert('ticket deleted')
+       }
+
      )
   }
  updateTicket()
