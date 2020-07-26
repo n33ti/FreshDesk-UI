@@ -31,9 +31,9 @@ login(username, password, status) {
  console.log(status.toString())
   this.role = status.toString();
  if(status.toString() === 'VALID')
-this.loginUrl = 'https://localhost:44319/api/Admin/Admin'
+this.loginUrl = 'https://neetifreshdesk.azurewebsites.net/api/Admin/Admin'
 else
-this.loginUrl= 'https://localhost:44319/api/Users'
+this.loginUrl= 'https://neetifreshdesk.azurewebsites.net/api/Users'
 console.log(this.loginUrl);
    return this.http.get<any>(this.loginUrl)
       .pipe(map(user => {
@@ -68,7 +68,7 @@ console.log(this.loginUrl);
          
       }));
       // else
-      // return this.http.get<any>('https://localhost:44319/api/Admin/Admin')
+      // return this.http.get<any>('https://neetifreshdesk.azurewebsites.net/api/Admin/Admin')
   
 }
 
@@ -81,9 +81,9 @@ public get CurrentRoleValue()
   {
     var url ;
     if(role.toString() === 'INVALID' )
-     url = 'https://localhost:44319/api/AddUser';
+     url = 'https://neetifreshdesk.azurewebsites.net/api/AddUser';
     else
-    url = 'https://localhost:44319/api/Admin/AddAdmin'
+    url = 'https://neetifreshdesk.azurewebsites.net/api/Admin/AddAdmin'
     return this.http.post(url, {Username: username, Password: password});
   }
 
