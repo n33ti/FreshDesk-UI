@@ -6,6 +6,7 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import {FilterPipe} from '../filter.pipe';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,6 +20,7 @@ role;
 admin = false
 selectedTicketid;
   filterForm : FormGroup;
+  seacrhText;
 
   constructor(private service : TicketsService, 
     private formBuilder: FormBuilder,
@@ -128,6 +130,11 @@ selectedTicketid;
    console.log(value)
    this.selectedTicketid = value;
  
+ }
+
+ search(value)
+ {
+  this.seacrhText = value
  }
 
 }

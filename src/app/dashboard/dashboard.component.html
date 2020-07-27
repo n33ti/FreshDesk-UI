@@ -3,8 +3,9 @@
 </h3>
 <br>
 <h5 *ngIf = "admin"> all tickets</h5>
-
-
+search ticket
+<input type = "serach" (change) = "search($event.target.value)" (ng-model) = "seacrhText"  />
+{{seacrhText}}
   <table class="table table-striped">
     <thead>
     <tr>
@@ -19,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-   <tr *ngFor ="let ticket of tickets">
+   <tr *ngFor ="let ticket of tickets | filter : seacrhText " >
        <td>
            {{ticket.id}}
        </td>

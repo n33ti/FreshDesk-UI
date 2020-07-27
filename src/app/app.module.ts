@@ -13,6 +13,7 @@ import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateTicketFormComponent } from './update-ticket-form/update-ticket-form.component';
 import { CreateContactFormComponent } from './create-contact-form/create-contact-form.component';
+import { FilterPipe } from './filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { CreateContactFormComponent } from './create-contact-form/create-contact
     TicketFormComponent,
     RegisterComponent,
     UpdateTicketFormComponent,
-    CreateContactFormComponent
+    CreateContactFormComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
