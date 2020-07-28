@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {FilterPipe} from '../filter.pipe';
+import {ContactService} from '../contact.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,13 +20,16 @@ Username
 role;
 admin = false
 selectedTicketid;
-  filterForm : FormGroup;
-  seacrhText;
+filterForm : FormGroup;
+seacrhText;
+contacts =[]
 
   constructor(private service : TicketsService, 
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute, 
-    pipe: DecimalPipe) { 
+    private pipe: DecimalPipe,
+    private contactService : ContactService
+    ) { 
     this.filterForm = this.formBuilder.group({
       filter:  ['', ]
     })
@@ -98,6 +102,9 @@ selectedTicketid;
         )
         console.log(this.tickets)
     }
+
+
+   
     
   }
 

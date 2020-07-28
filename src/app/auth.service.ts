@@ -80,11 +80,20 @@ public get CurrentRoleValue()
   register(username , password, role)
   {
     var url ;
+    var body= {Username : username ,Password: password }
     if(role.toString() === 'INVALID' )
      url = 'https://localhost:44319/api/AddUser';
     else
     url = 'https://localhost:44319/api/Admin/AddAdmin'
-    return this.http.post(url, {Username: username, Password: password});
+    console.log(body)
+    return this.http.post <any>(url, {username, password}).pipe(map(user => {
+ 
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      
+      return user;
+               
+  }));
+}
   }
 
-}
+

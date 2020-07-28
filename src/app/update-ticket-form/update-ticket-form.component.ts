@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {TicketsService} from '../tickets.service';
+import {ContactService} from '../contact.service'
 @Component({
   selector: 'app-update-ticket-form',
   templateUrl: './update-ticket-form.component.html',
@@ -10,13 +11,35 @@ import {TicketsService} from '../tickets.service';
 export class UpdateTicketFormComponent implements OnInit {
 ticketid: number;
 updateForm: FormGroup;
-  submitted = false;
-  error= false;
-  loading = false
-
+submitted = false;
+error= false;
+loading = false
+contacts = []
+selectedContact
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private service : TicketsService) { }
+    private contactService : ContactService,
+    private service : TicketsService) {
+      
+      this.contactService.GetContacts().subscribe(
+        (data) =>
+        {
+          console.log(data)
+          for(let i = 0 ; i<data.length; i++)
+          {
+            var contact = {name : data[i].username, id : data[i].id}
+            this.contacts.push(contact)
+          }
+          console.log(this.contacts)
+        }
+      )
+     
+     
+
+
+
+
+     }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((currentid)=>
@@ -33,7 +56,10 @@ updateForm: FormGroup;
       contactid : ['']
      
   });
+
+  console.log(this.selectedContact)
   }
+
   get f() { return this.updateForm.controls; }
   onSubmit()
   {
@@ -51,10 +77,10 @@ updateForm: FormGroup;
    else
    query = this.f.query.value
 
-   if(this.f.contactid.value === '')
+   if(this.selectedContact === undefined)
    contactid = null
    else
-   contactid = this.f.contactid.value
+   contactid = this.selectedContact
 
    this.service.updateTicket(this.ticketid, status, query, contactid).subscribe(
      (data) => { console.log(data)
@@ -71,6 +97,14 @@ updateForm: FormGroup;
    )
 
 
+  }
+
+  changeContact(value)
+  {
+    console.log(value.toString().charAt(0))
+    // console.log(this.f.contactid.value)
+    this.selectedContact =this.contacts[parseInt(value.toString().charAt(0))-1].id
+   
   }
 
 }

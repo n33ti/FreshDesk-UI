@@ -16,7 +16,7 @@ search ticket
       <th scope="col">contact person</th>
      
      <td *ngIf = "admin"> userId </td>
-     <td *ngIf = "admin"> select </td>
+     <td > select </td>
     </tr>
     </thead>
     <tbody>
@@ -36,7 +36,7 @@ search ticket
     <td *ngIf="admin">
         {{ticket.userId}}
            </td>
-    <td *ngIf="admin">
+    <td >
       <input type="radio" value="{{ticket.id}}" id={{ticket.id}} name="radioTicket" (change)="currentTicket($event.target.value)" />
            </td>
  
@@ -63,14 +63,16 @@ search ticket
         <button *ngIf="!admin" class = "btn btn-primary" (click) = "createTicket()" routerLink="create"> 
             raise ticket
              </button>
-             <button *ngIf="admin" class = "btn btn-primary" (click) = "deleteTicket($event)" > 
-                delete ticket
-            </button>
+          
        </td>
-
+<td>
+    <button  class = "btn btn-primary" (click) = "deleteTicket($event)" > 
+        delete ticket
+    </button>
+</td>
        <td>
   
-    <button *ngIf="admin" routerLink="update/{{selectedTicketid}}" class = "btn btn-primary" (click) = "updateTicket()"> 
+    <button  routerLink="update/{{selectedTicketid}}" class = "btn btn-primary" (click) = "updateTicket()"> 
       update ticket
        </button>
        </td>

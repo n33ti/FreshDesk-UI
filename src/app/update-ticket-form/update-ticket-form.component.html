@@ -15,8 +15,10 @@
        
     </div>
     <div class="form-group md-form">
-        <label for="contactid">Contact Id</label>
-        <input type="text" formControlName="contactid" class="form-control" >
+        <select class="custom-select" (change)="changeContact($event.target.value)" formControlName="contactid" class="form-control">
+   <option value="" disabled>Contact Person</option>
+   <option value="{{contact.id}}" *ngFor="let contact  of contacts" [ngValue]="contactUsername">{{contact.name}}</option>
+</select>
             
        
     </div>
