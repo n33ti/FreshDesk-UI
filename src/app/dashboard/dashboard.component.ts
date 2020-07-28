@@ -103,8 +103,6 @@ contacts =[]
         console.log(this.tickets)
     }
 
-
-   
     
   }
 

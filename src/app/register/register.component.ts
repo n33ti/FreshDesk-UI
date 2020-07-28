@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   error= false;
-  role
+ // role = 'INVALID'
   constructor(
     private formBuilder: FormBuilder,
     private service : AuthService
@@ -23,12 +23,12 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      role: ['',]
+      role: ['', Validators.required]
   
 
 });
 
-this.role = this.registerForm.controls.role.status
+//this.role = this.registerForm.controls.role.status
 
 }
 
@@ -37,9 +37,12 @@ get f() { return this.registerForm.controls; }
 
 onSubmit()
 {
+  // if(this.f.role.status === 'INVALID')
+  // this.role = 'VALID'
+  console.log(this.f.role.status)
   this.submitted = true;
   this.loading = true;
-  this.service.register(this.f.username.value, this.f.password.value, this.role).subscribe(
+  this.service.register(this.f.username.value, this.f.password.value, this.f.role.status).subscribe(
     (data)=>
     {
       console.log(data)
@@ -52,7 +55,8 @@ onSubmit()
       else{
         alert('Registeration failed. try again')
       }
-    }
+    },
+    err=> console.log(err)
   )
 }
 
