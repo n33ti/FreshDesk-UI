@@ -13,6 +13,6 @@ export class ContactService {
 
   GetContacts() : Observable <any>
   {
-    return this.http.get('https://localhost:44319/api/Contacts');
+    return this.http.get('https://neetifreshdesk.azurewebsites.net/api/Contacts');
   }
 }
