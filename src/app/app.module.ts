@@ -14,6 +14,9 @@ import { RegisterComponent } from './register/register.component';
 import { UpdateTicketFormComponent } from './update-ticket-form/update-ticket-form.component';
 import { CreateContactFormComponent } from './create-contact-form/create-contact-form.component';
 import { FilterPipe } from './filter.pipe';
+import { DonutChartComponent } from './donut-chart/donut-chart.component';
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,14 +27,16 @@ import { FilterPipe } from './filter.pipe';
     RegisterComponent,
     UpdateTicketFormComponent,
     CreateContactFormComponent,
-    FilterPipe
+    FilterPipe,
+    DonutChartComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartsModule
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]

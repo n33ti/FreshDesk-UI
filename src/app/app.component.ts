@@ -12,6 +12,7 @@ export class AppComponent {
   currentUser: any;
   id;
   url
+  chart= false
   constructor(private authenticationService : AuthService, 
     private router : Router, 
     private ticketService: TicketsService,
@@ -19,7 +20,7 @@ export class AppComponent {
     )
   {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-     console.log(this.currentUser);
+    // console.log(this.currentUser);
      if(this.currentUser == undefined)
      {
        this.router.navigate(['login']);
@@ -43,6 +44,7 @@ export class AppComponent {
       this.authenticationService.logout();
       this.router.navigate(['/login']);
     }
+   
   
   }
 

@@ -4,13 +4,13 @@
 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
     <div class="form-group md-form">
         <label for="status">Status</label>
-        <input type="text" formControlName="status" class="form-control" >
+        <input type="text" formControlName="status"placeholder= {{Pstatus}} class="form-control" >
             
        
     </div>
     <div class="form-group md-form">
-        <label for="query">Query</label>
-        <input type="text" formControlName="query" class="form-control" >
+        <label for="query">Query</label>    
+        <input type="text" placeholder= {{Pquery}} formControlName= "query" class="form-control" >
             
        
     </div>

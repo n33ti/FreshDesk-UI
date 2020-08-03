@@ -15,4 +15,8 @@ export class ContactService {
   {
     return this.http.get('https://neetifreshdesk.azurewebsites.net/api/Contacts');
   }
+  GetTicketsByContact(ContactId) : Observable <any>
+  {
+    return this.http.get('https://neetifreshdesk.azurewebsites.net/api/Admin/GetTickets/'+ parseInt(ContactId));
+  }
 }

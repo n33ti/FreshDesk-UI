@@ -8,6 +8,8 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {FilterPipe} from '../filter.pipe';
 import {ContactService} from '../contact.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,13 +25,25 @@ selectedTicketid;
 filterForm : FormGroup;
 seacrhText;
 contacts =[]
+ShowTickets = true;
+ShowGraph = false;
+ShowContacts = false;
+ticketByContact:Ticket[] =[]
+closeResult = ''
+query= ''
+status = ''
 
   constructor(private service : TicketsService, 
+    private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute, 
     private pipe: DecimalPipe,
     private contactService : ContactService
     ) { 
+      this.ShowContacts = false;
+      this.ShowGraph = false;
+      this.ShowTickets = true;
+
     this.filterForm = this.formBuilder.group({
       filter:  ['', ]
     })
@@ -85,8 +99,10 @@ contacts =[]
         
           (data) =>
           {
-            console.log("here" + data)
-            for(let i = 0; i<data.length; i++)
+          //  console.log("here" + data)
+        
+        
+        for(let i = 0; i<data.length; i++)
         {
             var ticket = new Ticket()
          //   console.log(data[i])
@@ -102,6 +118,16 @@ contacts =[]
         )
         console.log(this.tickets)
     }
+    this.contactService.GetContacts().subscribe(
+      (data) =>
+      {
+        for(let i = 0; i<data.length; i++)
+        {
+          this.contacts.push(data[i]);
+        }
+        console.log(this.contacts)
+      }
+    )
 
     
   }
@@ -121,7 +147,7 @@ contacts =[]
      this.service.deleteTicket(this.selectedTicketid).subscribe(
        (data) => {console.log(data)
         if(data === true)
-        alert('ticket deleted')
+        alert('ticket deleted. Refresh to seee changes')
        }
 
      )
@@ -132,14 +158,71 @@ contacts =[]
  }
  currentTicket(value)
  {
-   console.log(value)
+   console.log(this.tickets)
+   //console.log(this.tickets.filter(a=> a.id === value))
+  
    this.selectedTicketid = value;
- 
+   this.query = this.tickets.find(a=> a.id === parseInt(value)).query
+   this.status = this.tickets.find(a=> a.id === parseInt(value)).status
+
+ // console.log(this.query)
+  localStorage.setItem('query', JSON.stringify(this.query))
+  localStorage.setItem('status', JSON.stringify(this.status))
  }
 
  search(value)
  {
   this.seacrhText = value
+ }
+
+ showTickets()
+ {
+   
+
+   this.ShowTickets = true;
+   this.ShowGraph = false;
+   this.ShowContacts = false;
+//   console.log(this.ShowContacts)
+
+ }
+
+ showGraph()
+ {
+   this.ShowTickets = false;
+   this.ShowGraph = true;
+   this.ShowContacts = false;
+  // console.log(this.ShowContacts)
+
+ }
+ showContacts()
+ {
+   this.ShowTickets = false;
+   this.ShowGraph = false;
+   this.ShowContacts = true;
+
+ }
+
+ viewTickets(value)
+ {
+  //console.log(value)
+  this.contactService.GetTicketsByContact(value).subscribe(
+    (data)=>
+    {
+      this.ticketByContact = []
+      //console.log(data);
+      for(let i = 0; i<data.length; i++)
+      {
+      var  ticket = new Ticket()
+        ticket.id = data[i].id
+        ticket.query = data[i].query
+        ticket.status = data[i].status
+        this.ticketByContact.push(ticket);
+      }
+     // console.log(this.ticketByContact)
+    }
+  )
+ 
+
  }
 
 }

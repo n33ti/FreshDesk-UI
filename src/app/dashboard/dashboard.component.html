@@ -2,11 +2,37 @@
     Hi {{UserId}}
 </h3>
 <br>
-<h5 *ngIf = "admin"> all tickets</h5>
-search ticket
-<input type = "serach" (change) = "search($event.target.value)" (ng-model) = "seacrhText"  />
+
+<table *ngIf="admin">
+    <tr>
+        <td>
+            <a (click) = "showTickets()" class="btn btn-primary"> 
+                <h5 *ngIf = "admin"> all tickets</h5>
+                </a>
+        </td>
+        <td>
+            <a (click) = "showGraph()" class="btn btn-primary"> 
+                <h5 *ngIf = "admin"> View Stats</h5>
+                </a>
+        </td>
+        <td>
+            <a (click) = "showContacts()" class="btn btn-primary"> 
+                <h5 *ngIf = "admin"> View all contacts</h5>
+                </a>
+        </td>
+    </tr>
+</table>
+
+<div *ngIf = "ShowTickets">
+   
+    
+    search ticket
+    <input type = "serach"  placeholder="Enter ticket id or userId or keyword "  (change) = "search($event.target.value)" (ng-model) = "seacrhText"  />
+    
 {{seacrhText}}
-  <table class="table table-striped">
+
+
+  <table  class="table table-striped">
     <thead>
     <tr>
       <th scope="col">ticket id</th>
@@ -92,3 +118,75 @@ search ticket
 
 
   <router-outlet></router-outlet>
+</div>
+  <br>
+  <div *ngIf = "admin">
+    <app-donut-chart  *ngIf = "ShowGraph"></app-donut-chart>
+  </div>
+ <div *ngIf="ShowContacts" >
+
+    <table  *ngIf = "ticketByContact.length>0" class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">ticket id</th>
+            
+              <th scope="col">status</th>
+              <th scope="col">query</th>
+              </tr>
+              </thead>
+        <tr *ngFor="let ticket of ticketByContact">
+            <td>
+                {{ticket.id}}
+            </td>
+            <td>
+                {{ticket.status}}
+            </td>
+            <td>
+             {{ticket.query}}
+         </td>
+        </tr>
+    </table>
+<hr>
+<hr>
+<br>
+
+
+     <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">contact id</th>
+            
+              <th scope="col">Contact Person</th>
+              <th scope="col">action</th>
+             
+            </tr>
+            </thead>
+         <tr *ngFor = "let contact of contacts" >
+            <td>
+                {{contact.id}}
+            </td>
+            <td>
+                {{contact.username}}
+            </td>
+            <td>
+
+                <a class="btn"  id="{{contact.id}} "(click)="viewTickets($event.target.id)">
+                    View Tickets
+                </a>
+            </td>
+         </tr>
+     </table>
+
+ </div>
+
+ <ng-template #content let-modal>
+    <div class="modal-header">
+     
+    </div>
+    <div class="modal-body">
+   
+    </div>
+    <div class="modal-footer">
+     
+    </div>
+  </ng-template>

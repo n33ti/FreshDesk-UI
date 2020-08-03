@@ -38,7 +38,7 @@ export class CreateContactFormComponent implements OnInit {
     {
     console.log(data)
     if(data === true)
-    alert('contact created')
+    alert('contact created. Refresh to see changes')
     }
   )
     

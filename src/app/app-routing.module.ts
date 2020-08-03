@@ -9,6 +9,7 @@ import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateTicketFormComponent } from './update-ticket-form/update-ticket-form.component';
 import { CreateContactFormComponent } from './create-contact-form/create-contact-form.component';
+import { DonutChartComponent } from './donut-chart/donut-chart.component';
 
 
 const routes: Routes = [
@@ -37,11 +38,12 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       }
 
+
     ]
     
   
-  },
- 
+  }
+
  
 
 ];

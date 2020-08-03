@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ActivatedRoute} from '@angular/router'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {TicketsService} from '../tickets.service';
@@ -15,6 +15,8 @@ submitted = false;
 error= false;
 loading = false
 contacts = []
+Pquery
+Pstatus
 selectedContact
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -41,7 +43,12 @@ selectedContact
 
      }
 
+    
   ngOnInit(): void {
+    this.Pquery = localStorage.getItem('query')
+    this.Pstatus = localStorage.getItem('status')
+    localStorage.removeItem('status')
+    localStorage.removeItem('query')
     this.activatedRoute.params.subscribe((currentid)=>
     {
      // console.log(currentid)
@@ -57,7 +64,7 @@ selectedContact
      
   });
 
-  console.log(this.selectedContact)
+//  console.log(this.selectedContact)
   }
 
   get f() { return this.updateForm.controls; }
@@ -85,7 +92,7 @@ selectedContact
    this.service.updateTicket(this.ticketid, status, query, contactid).subscribe(
      (data) => { console.log(data)
     if(data === true)
-    alert('contact updated refresh to see changes')
+    alert('ticket updated refresh to see changes')
     else
     alert('some error occured')
     },
@@ -101,7 +108,7 @@ selectedContact
 
   changeContact(value)
   {
-    console.log(value.toString().charAt(0))
+  //  console.log(value.toString().charAt(0))
     // console.log(this.f.contactid.value)
     this.selectedContact =this.contacts[parseInt(value.toString().charAt(0))-1].id
    

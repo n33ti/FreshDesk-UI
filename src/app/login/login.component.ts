@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
      },
      err =>
      {
-     console.log("login failed")
+    alert("login failed")
      this.error = true
      this.submitted = true
      },
