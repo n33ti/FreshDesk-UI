@@ -9,6 +9,7 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 export class AuthService {
   loginUrl: string
   role: string
+  name
   private currentUserSubject: BehaviorSubject<any> = null;
     public currentUser: Observable<any>;
 
@@ -46,7 +47,7 @@ console.log(this.loginUrl);
           
             
             localStorage.setItem('currentUser', JSON.stringify(user[i]));
-            console.log("logged in")
+            //console.log("logged in")
            
             this.currentUserSubject.next(user);
             if(user[i] !== undefined)
@@ -94,6 +95,14 @@ public get CurrentRoleValue()
                
   }));
 }
+
+getUserDetails(userId) : Observable <any>
+{
+ 
+  
+ return this.http.get('https://neetifreshdesk.azurewebsites.net/api/Admin/Users/' + userId.toString())
+}
+
   }
 
 

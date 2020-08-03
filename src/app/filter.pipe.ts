@@ -18,7 +18,7 @@ export class FilterPipe implements PipeTransform {
    console.log(items)
     return items.filter(a => {
      return a.query.toString().toLowerCase().includes(searchText) ||  a.id.toString().toLowerCase().includes(searchText) 
-     ||  a.status.toString().toLowerCase().includes(searchText) ||  a.contactPerson.toString().toLowerCase().includes(searchText) || a.userId.toString().toLowerCase().includes(searchText) ;
+     ||  a.status.toString().toLowerCase().includes(searchText) ||  a.contactPerson.toString().toLowerCase().includes(searchText) || a.username.toString().toLowerCase().includes(searchText) ;
     //  a.toString().toLowerCase().includes(searchText);
     });
   }

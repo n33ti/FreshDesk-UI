@@ -4,4 +4,5 @@ export class Ticket {
     status: string
     contactPerson: string
     userId: number
+    username: string
 }

@@ -60,7 +60,11 @@
         {{ticket.contactPerson}}
     </td>
     <td *ngIf="admin">
-        {{ticket.userId}}
+        <ng-template #tipContent>click to view all {{ticket.username}}'s  tickets details</ng-template>
+<button id={{ticket.username}} (click)="ViewUsersTicket($event.target.id)" type="button" class="btn btn-outline-secondary" [ngbTooltip]="tipContent">
+    {{ticket.username}}
+</button>
+      
            </td>
     <td >
       <input type="radio" value="{{ticket.id}}" id={{ticket.id}} name="radioTicket" (change)="currentTicket($event.target.value)" />

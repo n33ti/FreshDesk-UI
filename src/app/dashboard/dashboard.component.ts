@@ -9,6 +9,7 @@ import { map, startWith } from 'rxjs/operators';
 import {FilterPipe} from '../filter.pipe';
 import {ContactService} from '../contact.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../auth.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DashboardComponent implements OnInit {
 UserId
 tickets: Ticket[] =[]
-Username
+ticketsOfUser: Ticket[]=[]
+Usernames: string[] =[]
+User
 role;
 admin = false
 selectedTicketid;
@@ -34,11 +37,12 @@ query= ''
 status = ''
 
   constructor(private service : TicketsService, 
-    private modalService: NgbModal,
+    
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute, 
     private pipe: DecimalPipe,
-    private contactService : ContactService
+    private contactService : ContactService,
+    private userService : AuthService
     ) { 
       this.ShowContacts = false;
       this.ShowGraph = false;
@@ -65,31 +69,8 @@ status = ''
 
  if(this.role ==='user')
  {
-    this.service.getTicketById(this.UserId).subscribe(
-      (data) =>
-      {
-        this.tickets =[]
-     //   console.log(data)
-       if(data !== null)
-       {
-        for(let i = 0; i<data.length; i++)
-        {
-            var ticket = new Ticket()
-            console.log(data[i].contact.username)
-            ticket.id = data[i].id
-            ticket.query = data[i].query
-            ticket.status = data[i].status
-            ticket.contactPerson = data[i].contact.username
-            ticket.userId = data[i].userId
-          //console.log(ticket)
-            this.tickets.push(ticket)
-        }
-        console.log(this.tickets.length)
-        
-      }
-    }
-    )
-    console.log(this.role)
+  this.tickets = this.getTickets();
+  //  console.log(this.role)
   }
  else
     {
@@ -111,12 +92,30 @@ status = ''
             ticket.status = data[i].status
             ticket.contactPerson = data[i].contact.username
             ticket.userId = data[i].userId
-       //    console.log(ticket)
             this.tickets.push(ticket)
+         this.userService.getUserDetails(ticket.userId).subscribe(
+           data1=> {
+          //   ticket.username = null;
+          //   console.log(JSON.parse(JSON.stringify(data)))
+             var detail = JSON.parse(JSON.stringify(data1))
+           //  console.log(detail[0].username)
+            
+              this.tickets[i].username = detail[0].username
+            
+           
+            // ticket.username = data1.username
+           }
+         )
+             
+          //      console.log(this.tickets)
         }
           }
         )
+      //  localStorage.removeItem('name')
+       // console.log(this.userService.getUserDetails(1))
         console.log(this.tickets)
+        
+      
     }
     this.contactService.GetContacts().subscribe(
       (data) =>
@@ -129,6 +128,8 @@ status = ''
       }
     )
 
+    //  this.ticketsOfUser = this.getTickets()
+   
     
   }
 
@@ -223,6 +224,44 @@ status = ''
   )
  
 
+ }
+
+ getTickets(userId=this.UserId)
+ {
+   
+  var tickets =[]
+  this.service.getTicketById(userId).subscribe(
+    (data) =>
+    {
+    
+   //   console.log(data)
+     if(data !== null)
+     {
+      for(let i = 0; i<data.length; i++)
+      {
+          var ticket = new Ticket()
+          console.log(data[i].contact.username)
+          ticket.id = data[i].id
+          ticket.query = data[i].query
+          ticket.status = data[i].status
+          ticket.contactPerson = data[i].contact.username
+          ticket.userId = data[i].userId
+        //console.log(ticket)
+          this.tickets.push(ticket)
+      }
+      console.log(this.tickets.length)
+      
+    }
+  }
+  )
+  return tickets
+ }
+ ViewUsersTicket(value)
+ {
+  if(this.seacrhText != value)
+  this.seacrhText = value
+  else
+  this.seacrhText = ''
  }
 
 }
